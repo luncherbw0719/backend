@@ -11,8 +11,8 @@
     <groupId>com.lambdaschool</groupId>
     <artifactId>authenticatedusers</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>authenticatedusers</name>
-    <description>Demo project for Spring Boot</description>
+    <name>Luncher</name>
+    <description>Helps school administrators to know what donations are needed for students</description>
 
     <properties>
         <java.version>11</java.version>

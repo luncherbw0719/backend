@@ -16,7 +16,7 @@ public class StartHereApplication
 
     public static void main(String[] args)
     {
-        ApplicationContext ctx = SpringApplication.run(com.lambdaschool.luncher.StartHereApplication.class, args);
+        ApplicationContext ctx = SpringApplication.run(com.lambdaschool.luncher.LuncherApplication.class, args);
 
         DispatcherServlet dispatcherServlet = (DispatcherServlet) ctx.getBean("dispatcherServlet");
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
