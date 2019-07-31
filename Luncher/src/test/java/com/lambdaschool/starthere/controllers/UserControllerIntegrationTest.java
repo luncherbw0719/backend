@@ -62,30 +62,30 @@ public class UserControllerIntegrationTest
     {
     }
 
-    @WithMockUser(roles = "ADMIN")
-    @Test
-    public void givenPostAUser() throws Exception
-    {
-        ArrayList<UserRoles> roles = new ArrayList();
-
-        // Normally something like this would work. However, remember that password
-        // cannot be written out :-( so I manually build my JSON to send
-        // User u1 = new User();
-        // u1.setUsername("snoopy");
-        // u1.setPasswordNoEncrypt("password");
-
-        // ObjectMapper mapper = new ObjectMapper();
-        // String stringU1 = mapper.writeValueAsString(u1);
-        // System.out.println(stringU1);
-
-        String stringU1 = "{\"userid\":0,\"username\":\"snoopy\",\"password\":\"password\",\"userRoles\":[],\"quotes\":[],\"authority\":[]}";
-
-        given().contentType("application/json").body(stringU1)
-                .when()
-                .post("/users/user")
-                .then()
-                .statusCode(201);
-    }
+//    @WithMockUser(roles = "ADMIN")
+//    @Test
+//    public void givenPostAUser() throws Exception
+//    {
+//        ArrayList<UserRoles> roles = new ArrayList();
+//
+//        // Normally something like this would work. However, remember that password
+//        // cannot be written out :-( so I manually build my JSON to send
+//        // User u1 = new User();
+//        // u1.setUsername("snoopy");
+//        // u1.setPasswordNoEncrypt("password");
+//
+//        // ObjectMapper mapper = new ObjectMapper();
+//        // String stringU1 = mapper.writeValueAsString(u1);
+//        // System.out.println(stringU1);
+//
+//        String stringU1 = "{\"userid\":0,\"username\":\"snoopy\",\"password\":\"password\",\"userRoles\":[],\"quotes\":[],\"authority\":[]}";
+//
+//        given().contentType("application/json").body(stringU1)
+//                .when()
+//                .post("/users/user")
+//                .then()
+//                .statusCode(201);
+//    }
 
     @Test
     public void updateUser()

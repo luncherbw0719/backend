@@ -1,14 +1,12 @@
 package com.lambdaschool.luncher;
 
 import com.lambdaschool.luncher.models.*;
-import com.lambdaschool.luncher.services.AuthorsService;
-import com.lambdaschool.luncher.services.BookService;
-import com.lambdaschool.luncher.services.RoleService;
-import com.lambdaschool.luncher.services.UserService;
+import com.lambdaschool.luncher.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import com.lambdaschool.luncher.services.SchoolService;
 
 import java.util.ArrayList;
 
@@ -23,10 +21,7 @@ public class SeedData implements CommandLineRunner
     UserService userService;
 
     @Autowired
-    BookService bookService;
-
-    @Autowired
-    AuthorsService authorsService;
+    SchoolService schoolService;
 
     @Override
     public void run(String[] args) throws Exception
@@ -74,6 +69,26 @@ public class SeedData implements CommandLineRunner
         users.add(new UserRoles(new User(), r2));
         User u5 = new User("Jane", "password", users);
         userService.save(u5);
+
+        School s1 = new School("Greeley Hill Elementary", "10326 Fiske Rd, Greeley Hill Rt Coulterville, CA 95311", 34654, 23451);
+        schoolService.save(s1);
+
+        School s2 = new School("Woodland Elementary", "3394 Woodland Dr, Mariposa CA 95338", 50321, 12458);
+        Donor d1 = new Donor("John Smith", 5000);
+        Donor d2 = new Donor("Tyler Cox", 300);
+        s2.getDonors().add(d1);
+        s2.getDonors().add(d2);
+        schoolService.save(s2);
+
+        School s3 = new School("Spring Hill Opportunity", "5171 Silva Rd Mariposa, CA 95338", 19034, 24589);
+        Donor d3 = new Donor("Ash Mcdonald", 1500);
+        s3.getDonors().add(d3);
+        schoolService.save(s3);
+
+        School s4 = new School("Coulterville High", "10326 Fiske Rd, Greeley Hill Rt Coulterville, CA 96311", 33216, 54098);
+        Donor d4 = new Donor("Sarah Connor", 900);
+        s4.getDonors().add(d4);
+        schoolService.save(s4);
 
     }
 }

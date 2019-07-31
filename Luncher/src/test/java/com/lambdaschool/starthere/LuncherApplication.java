@@ -11,7 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 // @EnableJpaAuditing
 @SpringBootApplication
 @EnableSwagger2
-public class StartHereApplication
+public class LuncherApplication
 {
 
     public static void main(String[] args)
