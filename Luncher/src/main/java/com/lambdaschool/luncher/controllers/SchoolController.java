@@ -1,8 +1,9 @@
 package com.lambdaschool.luncher.controllers;
 
-import com.lambdaschool.luncher.models.ErrorDetail;
-import com.lambdaschool.luncher.models.School;
+import com.lambdaschool.luncher.models.*;
+import com.lambdaschool.luncher.services.RoleService;
 import com.lambdaschool.luncher.services.SchoolService;
+import com.lambdaschool.luncher.services.UserService;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,6 +31,10 @@ public class SchoolController
 
     @Autowired
     SchoolService schoolService;
+//    @Autowired
+//    UserService userService;
+//    @Autowired
+//    RoleService roleService;
 
     @ApiOperation(value = "returns all schools with Paging Ability",
             responseContainer = "List")
@@ -74,7 +80,7 @@ public class SchoolController
 
         // set the location header for the newly created resource
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newSchoolURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{schoolid}").buildAndExpand(newSchool.getSchoolid()).toUri();
+        URI newSchoolURI = ServletUriComponentsBuilder.fromCurrentRequest().path("/{schoolid}").buildAndExpand(newSchool.getId()).toUri();
         responseHeaders.setLocation(newSchoolURI);
 
 

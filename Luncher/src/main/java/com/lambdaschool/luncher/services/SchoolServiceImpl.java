@@ -18,6 +18,9 @@ public class SchoolServiceImpl implements SchoolService
     @Autowired
     private SchoolRepository schoolrepos;
 
+    @Autowired
+    private SchoolService schoolService;
+
     public SchoolServiceImpl()
     {
         super();
@@ -28,6 +31,14 @@ public class SchoolServiceImpl implements SchoolService
     {
         List<School> list = new ArrayList<>();
         schoolrepos.findAll(pageable).iterator().forEachRemaining(list::add);
+        return list;
+    }
+
+    @Override
+    public List<School> findAll()
+    {
+        List<School> list = new ArrayList<>();
+        schoolrepos.findAll().iterator().forEachRemaining(list::add);
         return list;
     }
 
@@ -44,6 +55,7 @@ public class SchoolServiceImpl implements SchoolService
     public School save(School school)
     {
         School newSchool = new School();
+        double updatedFunds = 0;
 
         if (!school.getName().isEmpty())
         {
@@ -63,19 +75,29 @@ public class SchoolServiceImpl implements SchoolService
             newSchool.setCurrentfunds(0);
         }
 
-        if (school.getNeededfunds() > 0)
+        if (school.getFundgoals() > 0)
         {
-            newSchool.setNeededfunds(school.getNeededfunds());
-        }else
-        {
-            newSchool.setNeededfunds(0);
+            newSchool.setFundgoals(school.getFundgoals());
         }
+
+        newSchool.setIsdonor(school.isIsdonor());
 
         if (!school.getDonors().isEmpty())
         {
             for (Donor d : school.getDonors())
             {
+                updatedFunds += d.getAmountdonated();
                 newSchool.getDonors().add(d);
+            }
+
+            newSchool.setCurrentfunds(updatedFunds);
+        }
+
+        if (!school.getSchools().isEmpty())
+        {
+            for (School s : school.getSchools())
+            {
+                newSchool.getSchools().add(s);
             }
         }
 
@@ -89,6 +111,7 @@ public class SchoolServiceImpl implements SchoolService
         School currentSchool = schoolrepos.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(Long.toString(id)));
 
+        double updatedFunds = 0;
         if (!school.getName().isEmpty())
         {
             currentSchool.setName(school.getName());
@@ -102,17 +125,40 @@ public class SchoolServiceImpl implements SchoolService
         if (school.getCurrentfunds() > 0)
         {
             currentSchool.setCurrentfunds(school.getCurrentfunds());
-        }else
-        {
-            currentSchool.setCurrentfunds(0);
         }
 
-        if (school.getNeededfunds() > 0)
+        if (school.getFundgoals() > 0)
         {
-            currentSchool.setNeededfunds(school.getNeededfunds());
-        }else
+            currentSchool.setFundgoals(school.getFundgoals());
+        }
+
+        currentSchool.setIsdonor(school.isIsdonor());
+
+        if (!school.getDonors().isEmpty())
         {
-            currentSchool.setNeededfunds(0);
+            if (!currentSchool.getDonors().isEmpty())
+            {
+                currentSchool.getDonors().clear();
+            }
+            for (Donor d : school.getDonors())
+            {
+                updatedFunds += d.getAmountdonated();
+                currentSchool.getDonors().add(d);
+            }
+
+            currentSchool.setCurrentfunds(updatedFunds);
+        }
+
+        if (!school.getSchools().isEmpty())
+        {
+            if (!currentSchool.getSchools().isEmpty())
+            {
+                currentSchool.getSchools().clear();
+            }
+            for (School s : school.getSchools())
+            {
+                currentSchool.getSchools().add(s);
+            }
         }
 
         return schoolrepos.save(currentSchool);

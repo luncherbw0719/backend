@@ -2,6 +2,7 @@ package com.lambdaschool.luncher.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -15,17 +16,26 @@ import java.util.List;
 @Table(name = "users")
 public class User extends Auditable
 {
+    @ApiModelProperty(name = "userid", value = "primary key for User", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
 
+    @ApiModelProperty(name = "username", value = "username for login", required = true, example = "hellokitty")
     @Column(nullable = false,
             unique = true)
     private String username;
 
+    @ApiModelProperty(name = "password", value = "password for login", required = true, example = "password")
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    @ApiModelProperty(name = "isdonor", value = "determines if the user is a donor or school admin", example = "1")
+    private boolean isdonor = false;
+
+    @ApiModelProperty(name = "schoolid", value = "the id of a school admin or donor", example = "1")
+    private long schoolid = 0;
 
     @OneToMany(mappedBy = "user",
                cascade = CascadeType.ALL)
@@ -42,10 +52,11 @@ public class User extends Auditable
     {
     }
 
-    public User(String username, String password, List<UserRoles> userRoles)
+    public User(String username, String password, List<UserRoles> userRoles, boolean isdonor)
     {
         setUsername(username);
         setPassword(password);
+        setIsdonor(isdonor);
         for (UserRoles ur : userRoles)
         {
             ur.setUser(this);
@@ -87,6 +98,26 @@ public class User extends Auditable
     public void setPasswordNoEncrypt(String password)
     {
         this.password = password;
+    }
+
+    public boolean isIsdonor()
+    {
+        return isdonor;
+    }
+
+    public void setIsdonor(boolean isdonor)
+    {
+        this.isdonor = isdonor;
+    }
+
+    public long getSchoolid()
+    {
+        return schoolid;
+    }
+
+    public void setSchoolid(long schoolid)
+    {
+        this.schoolid = schoolid;
     }
 
     public List<UserRoles> getUserRoles()

@@ -11,11 +11,13 @@ public interface SchoolService
 {
     List<School> findAll(Pageable pageable);
 
+    List<School> findAll();
+
     School findById(long id);
 
-    School update(School book, long id);
+    School update(School school, long id);
 
-    School save (School book);
+    School save (School school);
 
     void delete(long id);
 }

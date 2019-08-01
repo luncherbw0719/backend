@@ -13,47 +13,55 @@ import java.util.List;
 @Table(name = "school")
 public class School
 {
-    @ApiModelProperty(name = "schoolid", value = "primary key for school", required = true, example = "1")
+    @ApiModelProperty(name = "id", value = "primary key for school", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long schoolid;
+    private long id;
 
     @ApiModelProperty(name = "name", value = "School Name", required = true, example = "Boston High School")
     private String name;
 
-    @ApiModelProperty(name = "location", value = "Book Title", required = true, example = "Physics")
+    public String username;
+
+    @ApiModelProperty(name = "location", value = "School location", required = true, example = "454 oak st Orlando Fl")
     private String location;
 
     @ApiModelProperty(name = "currentfunds", value = "Amount of money a school has for student lunches", required = true, example = "10000")
     private double currentfunds;
 
-    @ApiModelProperty(name = "neededfunds", value = "Amount of money a school still needs for student lunches", required = true, example = "10000")
-    private double neededfunds;
+    @ApiModelProperty(name = "fundgoals", value = "Amount of money a school still needs for student lunches", required = true, example = "10000")
+    private double fundgoals;
+
+    @ApiModelProperty(name = "isdonor", value = "Amount of money a school still needs for student lunches", required = true, example = "10000")
+    private boolean isdonor = false;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnoreProperties("schools")
     List<Donor> donors = new ArrayList<>();
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    List<School> schools = new ArrayList<>();
+
     public School()
     {
     }
 
-    public School(String name, String location, double currentfunds, double neededfunds)
+    public School(String name, String location, double fundgoals, boolean isdonor)
     {
         this.name = name;
         this.location = location;
-        this.currentfunds = currentfunds;
-        this.neededfunds = neededfunds;
+        this.fundgoals = fundgoals;
+        this.isdonor = isdonor;
     }
 
-    public long getSchoolid()
+    public long getId()
     {
-        return schoolid;
+        return id;
     }
 
-    public void setSchoolid(long schoolid)
+    public void setId(long id)
     {
-        this.schoolid = schoolid;
+        this.id = id;
     }
 
     public String getName()
@@ -86,19 +94,40 @@ public class School
         this.currentfunds = currentfunds;
     }
 
-    public double getNeededfunds()
+    public double getFundgoals()
     {
-        return neededfunds;
+        return fundgoals;
     }
 
-    public void setNeededfunds(double neededfunds)
+    public void setFundgoals(double fundgoals)
     {
-        this.neededfunds = neededfunds;
+        this.fundgoals = fundgoals;
     }
+
 
     public List<Donor> getDonors()
     {
         return donors;
+    }
+
+    public boolean isIsdonor()
+    {
+        return isdonor;
+    }
+
+    public void setIsdonor(boolean isdonor)
+    {
+        this.isdonor = isdonor;
+    }
+
+    public List<School> getSchools()
+    {
+        return schools;
+    }
+
+    public void setSchools(List<School> schools)
+    {
+        this.schools = schools;
     }
 
     public void setDonors(List<Donor> donors)
