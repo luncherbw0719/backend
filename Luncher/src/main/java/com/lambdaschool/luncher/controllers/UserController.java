@@ -1,6 +1,7 @@
 package com.lambdaschool.luncher.controllers;
 
 import com.lambdaschool.luncher.models.User;
+import com.lambdaschool.luncher.repository.UserRepository;
 import com.lambdaschool.luncher.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,8 @@ public class UserController
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userrepos;
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping(value = "/users",
@@ -50,6 +53,19 @@ public class UserController
         logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed");
 
         User u = userService.findUserById(userId);
+        return new ResponseEntity<>(u, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping(value = "/user/{username}",
+            produces = {"application/json"})
+    public ResponseEntity<?> getUserByName(HttpServletRequest request,
+                                     @PathVariable
+                                             String username)
+    {
+        logger.trace(request.getMethod().toUpperCase() + " " + request.getRequestURI() + " accessed");
+
+        User u = userrepos.findByUsername(username);
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
 

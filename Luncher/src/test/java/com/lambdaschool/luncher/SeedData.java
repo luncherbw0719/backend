@@ -1,15 +1,16 @@
-package com.lambdaschool.luncher;
+package java.com.lambdaschool.luncher;
 
 import com.lambdaschool.luncher.models.*;
-import com.lambdaschool.luncher.services.*;
+import com.lambdaschool.luncher.services.DonorService;
+import com.lambdaschool.luncher.services.RoleService;
+import com.lambdaschool.luncher.services.SchoolService;
+import com.lambdaschool.luncher.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import com.lambdaschool.luncher.services.SchoolService;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Transactional
 @Component
