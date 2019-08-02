@@ -72,6 +72,10 @@ public class UserServiceImpl implements UserDetailsService, UserService
         newUser.setUsername(user.getUsername());
         newUser.setPasswordNoEncrypt(user.getPassword());
         newUser.setIsdonor(user.isIsdonor());
+        if (!user.getSchoolname().isEmpty())
+        {
+            newUser.setSchoolname(user.getSchoolname());
+        }
         if(user.getSchoolid() > 0)
         {
             newUser.setSchoolid(user.getSchoolid());
@@ -119,6 +123,12 @@ public class UserServiceImpl implements UserDetailsService, UserService
                 {
                     currentUser.setSchoolid(user.getSchoolid());
                 }
+
+                if (!user.getSchoolname().isEmpty())
+                {
+                    currentUser.setSchoolname(user.getSchoolname());
+                }
+
 
                 if (user.getUserRoles().size() > 0)
                 {

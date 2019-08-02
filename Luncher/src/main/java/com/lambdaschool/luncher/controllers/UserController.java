@@ -44,7 +44,7 @@ public class UserController
 
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping(value = "/user/{userId}",
+    @GetMapping(value = "/user/get/{userId}",
                 produces = {"application/json"})
     public ResponseEntity<?> getUser(HttpServletRequest request,
                                      @PathVariable

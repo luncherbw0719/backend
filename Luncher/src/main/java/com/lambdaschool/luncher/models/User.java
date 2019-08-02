@@ -34,6 +34,9 @@ public class User extends Auditable
     @ApiModelProperty(name = "isdonor", value = "determines if the user is a donor or school admin", example = "1")
     private boolean isdonor = false;
 
+    @ApiModelProperty(name = "schoolname", value = "Name of the school or donor", example = "John High Point Middle school")
+    private String schoolname = "";
+
     @ApiModelProperty(name = "schoolid", value = "the id of a school admin or donor", example = "1")
     private long schoolid = 0;
 
@@ -108,6 +111,17 @@ public class User extends Auditable
     public void setIsdonor(boolean isdonor)
     {
         this.isdonor = isdonor;
+    }
+
+
+    public String getSchoolname()
+    {
+        return schoolname;
+    }
+
+    public void setSchoolname(String schoolname)
+    {
+        this.schoolname = schoolname;
     }
 
     public long getSchoolid()
