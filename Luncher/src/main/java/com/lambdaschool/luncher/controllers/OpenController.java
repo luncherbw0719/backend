@@ -93,6 +93,7 @@ public class OpenController
         newSchool = schoolService.save(newSchool);
         User newUser = new User(username, password, admins, newSchool.isIsdonor());
         newUser.setSchoolid(newSchool.getId());
+        newUser.setSchoolname(newSchool.getName());
         userService.save(newUser);
 
         // set the location header for the newly created resource

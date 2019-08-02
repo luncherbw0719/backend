@@ -21,8 +21,6 @@ public class School
     @ApiModelProperty(name = "name", value = "School Name", required = true, example = "Boston High School")
     private String name;
 
-    public String username;
-
     @ApiModelProperty(name = "location", value = "School location", required = true, example = "454 oak st Orlando Fl")
     private String location;
 

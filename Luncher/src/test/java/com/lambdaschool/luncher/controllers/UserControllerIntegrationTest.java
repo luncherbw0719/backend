@@ -27,12 +27,12 @@ public class UserControllerIntegrationTest
     @Before
     public void initialiseRestAssuredMockMcvWebApplicationContext()
     {
-        RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
-
-        mvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .apply(SecurityMockMvcConfigurers.springSecurity())
-                .build();
+//        RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
+//
+//        mvc = MockMvcBuilders
+//                .webAppContextSetup(webApplicationContext)
+//                .apply(SecurityMockMvcConfigurers.springSecurity())
+//                .build();
     }
 
 
